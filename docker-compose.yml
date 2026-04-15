@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: kudos-db
+    restart: always
+    environment:
+      POSTGRES_USER: kudos_user
+      POSTGRES_PASSWORD: kudos_password_123
+      POSTGRES_DB: kudos_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  kudos-app:
+    build: .
+    container_name: kudos-app
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "postgresql://kudos_user:kudos_password_123@db:5432/kudos_db?schema=public"
+    restart: always
+
+volumes:
+  postgres_data:

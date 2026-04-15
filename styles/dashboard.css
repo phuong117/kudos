@@ -1,0 +1,346 @@
+/* Dashboard Layout Structure */
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 24px 60px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* User Hero Section (Component 1) */
+.user-hero-card {
+  grid-column: span 8;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.user-avatar-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f1f5f9;
+}
+
+.user-info-text h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.role-leader {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.role-user {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Stats Bar */
+.stats-container {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s;
+}
+
+.stat-box:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Mid Section (Form & History) */
+.main-content-area {
+  grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Form Styles */
+.kudos-form-card {
+  padding: 32px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.input-field {
+  width: 100%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #1e293b;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.input-field:focus {
+  border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.card-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.type-btn {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #000;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.type-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.type-btn.active.thank_you {
+  background: #3b82f6 !important;
+  color: #fff !important;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.type-btn.active.great_job {
+  background: #1d4ed8 !important;
+  color: #fff !important;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(to right, #88d3ce, #6e45e2);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 14px rgba(110, 69, 226, 0.3);
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 20px rgba(110, 69, 226, 0.4);
+}
+
+/*Lucky Wheel & Rewards */
+.sidebar-content {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tab-switcher {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  border-radius: 14px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #777;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #1d4ed8;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.2);
+}
+
+/* History Tabs */
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.history-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  border-radius: 100px;
+}
+
+.h-tab {
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #000;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.h-tab.active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* Header Fix to the Top (Locked) */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  z-index: 1000;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid #e2e8f0;
+  transform: none;
+  border-radius: 0;
+}
+
+/* Minimalist Search (No Icon) */
+.minimal-search {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  /* Changed from 100px to match other inputs */
+  padding: 14px 16px;
+  color: #1e293b;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.minimal-search:focus {
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(110, 69, 226, 0.1);
+}
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+
+  .user-hero-card,
+  .stats-container,
+  .main-content-area,
+  .sidebar-content {
+    grid-column: span 12;
+  }
+}

@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  LEADER
+  ADMIN
+}
+
+enum CardType {
+  THANK_YOU
+  GREAT_JOB
+}
+
+enum GiftType {
+  DIRECT
+  WHEEL
+}
+
+model User {
+  id           String   @id @default(cuid())
+  ms_oid       String?  @unique // Microsoft SSO Object ID (Optional for local accounts)
+  email        String   @unique
+  password     String?  // Mật khẩu cho tài khoản tự tạo
+  name         String?
+  emailVerified DateTime? // Yêu cầu bởi NextAuth PrismaAdapter
+  image        String?  // Avatar image URL or base64
+  role         Role     @default(USER)
+  total_points Int      @default(0)
+  thank_you_quota Int   @default(2)
+  great_job_quota Int   @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sentCards     Card[]        @relation("SentCards")
+  receivedCards Card[]        @relation("ReceivedCards")
+  transactions  Transaction[]
+  accounts      Account[]
+}
+
+model Card {
+  id          String   @id @default(cuid())
+  senderId    String
+  receiverId  String
+  type        CardType
+  message     String
+  createdAt   DateTime @default(now())
+
+  sender   User @relation("SentCards", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedCards", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+model Gift {
+  id         String   @id @default(cuid())
+  name       String
+  imageUrl   String?
+  pointCost  Int
+  stock      Int      @default(0)
+  isActive   Boolean  @default(true)
+  type       GiftType @default(DIRECT)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  action      String   // send_card, receive_card, redeem_gift, spin_wheel
+  pointChange Int
+  referenceId String?  // ID of Card or Gift related to this
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  ext_expires_in           Int?     // Yêu cầu bởi Azure AD
+  refresh_token_expires_in Int?     // Yêu cầu bởi Azure AD
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}

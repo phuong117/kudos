@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0250c5;
+  --color-primary-glow: #d43f8d;
+  --color-secondary: #0f172a;
+  --color-accent: #f59e0b;
+  --color-surface: #ffffff;
+  --color-background: #fff1eb;
+  --color-glass-bg: #ffffff;
+  --color-glass-border: #e2e8f0;
+
+  --radius-xl: 1.5rem;
+  --radius-lg: 1rem;
+}
+
+:root {
+  --primary: #30cfd0;
+  --primary-glow: #330867;
+  --secondary: #330867;
+  --font-open-sans: 'Open Sans', sans-serif;
+
+  /* Typography Scale */
+  --fs-title: 32px;
+  --fs-heading: 18px;
+  --fs-normal: 13px;
+
+  --background: #fff1eb;
+  --foreground: #000000;
+  --text-secondary: #000000;
+  --glass-bg: #ffffff;
+  --glass-border: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-open-sans);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: var(--fs-normal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: var(--fs-title);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+h2 {
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+p,
+span,
+div,
+button,
+input,
+textarea {
+  font-size: var(--fs-normal);
+}
+
+/* Base Utility for Atmosphere */
+.app-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Force specific utility classes to Black for Light Mode Contrast */
+.text-white,
+.text-gray-500,
+.text-slate-500,
+.text-gray-400,
+.text-slate-400,
+.text-gray-300 {
+  color: #000000 !important;
+}
+
+/* Redefine text-primary as a Gradient */
+.text-primary {
+  background: linear-gradient(to right, #0250c5, #d43f8d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Solid primary color for icons and elements that don't support bg-clip */
+.icon-primary {
+  color: #0250c5;
+}
