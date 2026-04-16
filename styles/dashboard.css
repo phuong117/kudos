@@ -261,13 +261,6 @@ body {
   gap: 32px;
 }
 
-.tab-switcher {
-  display: flex;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 4px;
-  border-radius: 14px;
-}
-
 .tab-btn {
   flex: 1;
   padding: 10px;
@@ -342,7 +335,6 @@ body {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  /* Changed from 100px to match other inputs */
   padding: 14px 16px;
   color: #1e293b;
   font-size: 14px;
@@ -387,36 +379,44 @@ body {
 
 /* --- CREATIVE STANDOUT STYLES --- */
 
+@keyframes creative-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes creative-shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes creative-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes creative-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
 /* Victory Notification Banner */
 .win-notification-creative {
-  background: linear-gradient(135deg, #eea2a2 0%, #7ac5d8 100%);
+  background: linear-gradient(45deg, #eea2a2, #bbc1bf, #57c6e1, #b49fda, #7ac5d8) !important;
+  background-size: 300% 300% !important;
+  animation: creative-gradient 8s ease infinite !important;
   border-radius: 20px;
   padding: 24px;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 15px 40px -10px rgba(238, 162, 162, 0.4), 0 0 20px rgba(122, 197, 216, 0.2);
-  animation: dynamic-gradient-dashboard 8s ease infinite;
+  box-shadow: 0 15px 45px -10px rgba(87, 198, 225, 0.4) !important;
 }
 
 .win-notification-creative h3 {
-  color: #000 !important;
-  text-shadow: 0 2px 4px rgba(255,255,255,0.3);
-}
-
-.win-notification-creative p {
-  color: #334155 !important;
-  font-weight: 800;
-}
-
-.win-notification-creative button {
-  background: rgba(0, 0, 0, 0.05) !important;
-  color: #000 !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
-
-.win-notification-creative button:hover {
-  background: rgba(0, 0, 0, 0.1) !important;
+  color: #fff !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .win-notification-creative::before {
@@ -426,12 +426,88 @@ body {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
   transform: skewX(-30deg);
-  animation: shine-dashboard 4s infinite linear;
+  animation: creative-shine 4s infinite linear;
 }
 
-/* Creative Tabs selection */
+/* Base Creative Style for Buttons */
+.submit-button, 
+.type-btn.active, 
+.h-tab.active, 
+.tab-btn-creative.active,
+.spin-btn-creative {
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background-size: 300% 300% !important;
+  z-index: 1;
+}
+
+/* Hover Effects: Glow & Dynamic Gradient */
+.submit-button:hover, 
+.type-btn.active:hover, 
+.h-tab.active:hover, 
+.tab-btn-creative.active:hover,
+.spin-btn-creative:hover:not(:disabled) {
+  background-image: linear-gradient(45deg, #eea2a2, #bbc1bf, #57c6e1, #b49fda, #7ac5d8) !important;
+  animation: creative-gradient 4s ease infinite !important;
+  box-shadow: 0 0 20px rgba(87, 198, 225, 0.5), 0 0 40px rgba(180, 159, 218, 0.3) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  color: #fff !important;
+}
+
+/* Shine Effect Layer */
+.submit-button::before, 
+.type-btn.active::before, 
+.h-tab.active::before, 
+.tab-btn-creative.active::before,
+.spin-btn-creative::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-30deg);
+  animation: creative-shine 3s infinite linear;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Icon Pulse & Bounce */
+.submit-button svg, 
+.type-btn.active svg, 
+.h-tab.active svg {
+  animation: creative-pulse 2s infinite ease-in-out;
+}
+
+.submit-button:hover svg, 
+.type-btn.active:hover svg {
+  animation: creative-bounce 0.6s infinite ease-in-out;
+}
+
+/* Specific Component Styles */
+.submit-button {
+  background: linear-gradient(135deg, #7ac5d8 0%, #b49fda 100%);
+  box-shadow: 0 10px 20px rgba(110, 69, 226, 0.2);
+}
+
+.type-btn.active.thank_you {
+  background: linear-gradient(135deg, #3b82f6 0%, #57c6e1 100%) !important;
+}
+
+.type-btn.active.great_job {
+  background: linear-gradient(135deg, #1d4ed8 0%, #b49fda 100%) !important;
+}
+
+.h-tab.active {
+  background: #3b82f6 !important;
+  color: #fff !important;
+}
+
+/* Tab Switcher Style */
 .tab-switcher-creative {
   display: flex;
   background: rgba(0, 0, 0, 0.05);
@@ -451,63 +527,11 @@ body {
   font-weight: 800;
   font-size: 11px;
   text-transform: uppercase;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s;
   cursor: pointer;
 }
 
 .tab-btn-creative.active {
   background: linear-gradient(135deg, #eea2a2 0%, #7ac5d8 100%);
-  color: #000;
-  box-shadow: 0 8px 20px -5px rgba(238, 162, 162, 0.5);
-  transform: translateY(-2px);
+  color: #fff !important;
 }
-
-/* Creative Spin Button */
-.spin-btn-creative {
-  width: 100%;
-  padding: 20px;
-  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  font-weight: 900;
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s;
-  box-shadow: 0 15px 35px -5px rgba(48, 207, 208, 0.4);
-}
-
-.spin-btn-creative:hover:not(:disabled) {
-  transform: translateY(-4px) scale(1.02);
-  background: linear-gradient(45deg, #eea2a2, #bbc1bf, #57c6e1, #b49fda, #7ac5d8);
-  background-size: 300% 300%;
-  animation: dynamic-gradient-dashboard 5s ease infinite;
-  box-shadow: 0 25px 50px -10px rgba(110, 69, 226, 0.5);
-}
-
-.spin-btn-creative:hover:not(:disabled)::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transform: skewX(-30deg);
-  animation: shine-dashboard 1.5s infinite;
-}
-
-@keyframes dynamic-gradient-dashboard {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes shine-dashboard {
-  0% { left: -100%; }
-  100% { left: 200%; }
-}
