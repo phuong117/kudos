@@ -57,4 +57,4 @@ export async function GET(req: Request) {
     console.error("Fetch transactions error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
-}
+} 
