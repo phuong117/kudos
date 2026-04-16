@@ -279,6 +279,22 @@ export default function DashboardPage() {
               successMsg={successMsg}
               handleSendKudos={handleSendKudos}
             />
+
+            <section className="activity-card mt-8">
+              <div className="history-header">
+                <div className="flex items-center gap-3">
+                  <HistoryIcon className="w-5 h-5 text-primary" />
+                  <h2 className="text-xl font-bold">Lịch sử hoạt động</h2>
+                </div>
+                <div className="history-tabs">
+                  <button onClick={() => setActiveTab('received')} className={`h-tab ${activeTab === 'received' ? 'active' : ''}`}>Đã nhận</button>
+                  <button onClick={() => setActiveTab('sent')} className={`h-tab ${activeTab === 'sent' ? 'active' : ''}`}>Đã gửi</button>
+                </div>
+              </div>
+              <div className="glass-card" style={{ padding: '0', background: 'transparent', border: 'none' }}>
+                <DashboardTable activeTab={activeTab} />
+              </div>
+            </section>
           </div>
 
           <GamificationSidebar 
@@ -293,22 +309,6 @@ export default function DashboardPage() {
             handleWheelWin={handleWheelWin}
           />
         </div>
-
-        <section className="activity-history-section mt-8">
-          <div className="history-header">
-            <div className="flex items-center gap-3">
-              <HistoryIcon className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-bold">Lịch sử hoạt động</h2>
-            </div>
-            <div className="history-tabs">
-              <button onClick={() => setActiveTab('received')} className={`h-tab ${activeTab === 'received' ? 'active' : ''}`}>Đã nhận</button>
-              <button onClick={() => setActiveTab('sent')} className={`h-tab ${activeTab === 'sent' ? 'active' : ''}`}>Đã gửi</button>
-            </div>
-          </div>
-          <div className="glass-card" style={{ padding: '0', background: 'transparent', border: 'none' }}>
-            <DashboardTable activeTab={activeTab} />
-          </div>
-        </section>
       </div>
     </main>
   );
