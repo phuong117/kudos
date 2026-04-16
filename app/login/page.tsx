@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleMSSO = () => {
     signIn('azure-ad', { callbackUrl: '/' });
@@ -19,12 +20,25 @@ export default function LoginPage() {
   const handleCredentialsLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await signIn('credentials', {
-      email,
-      password,
-      callbackUrl: '/'
-    });
-    setLoading(false);
+    setError(null);
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: '/'
+      });
+
+      if (result?.error) {
+        setError('Tài khoản hoặc mật khẩu không chính xác');
+      } else {
+        window.location.href = '/';
+      }
+    } catch (err) {
+      setError('Đã có lỗi xảy ra, vui lòng thử lại');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
