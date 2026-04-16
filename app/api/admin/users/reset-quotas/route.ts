@@ -23,11 +23,19 @@ export async function POST() {
     // LEADER: TY=2, GJ=2
     // ADMIN: TY=999, GJ=999
 
-    // Reset Quotas for all users dùng Raw SQL để tránh lỗi bộ thư viện Prisma cũ
     await prisma.$transaction([
-      prisma.$executeRaw`UPDATE User SET thank_you_quota = 2, great_job_quota = 0 WHERE role = 'USER'`,
-      prisma.$executeRaw`UPDATE User SET thank_you_quota = 2, great_job_quota = 2 WHERE role = 'LEADER'`,
-      prisma.$executeRaw`UPDATE User SET thank_you_quota = 999, great_job_quota = 999 WHERE role = 'ADMIN'`
+      prisma.user.updateMany({
+        where: { role: 'USER' },
+        data: { thank_you_quota: 2, great_job_quota: 0 }
+      }),
+      prisma.user.updateMany({
+        where: { role: 'LEADER' },
+        data: { thank_you_quota: 2, great_job_quota: 2 }
+      }),
+      prisma.user.updateMany({
+        where: { role: 'ADMIN' },
+        data: { thank_you_quota: 999, great_job_quota: 999 }
+      })
     ]);
 
     return NextResponse.json({ message: "Đã làm mới hạn mức cho toàn bộ nhân sự thành công!" });
