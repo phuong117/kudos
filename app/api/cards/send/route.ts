@@ -26,9 +26,15 @@ export async function POST(req: Request) {
     };
     const pointsToDeduct = pointsMap[type];
 
-    // Lấy thông tin quota của user
-    const users = await prisma.$queryRaw`SELECT role, thank_you_quota, great_job_quota FROM User WHERE id = ${senderId} LIMIT 1`;
-    const userWithQuota = (users as any)[0];
+    // Lấy thông tin quota của user bằng Prisma Client
+    const userWithQuota = await prisma.user.findUnique({
+      where: { id: senderId },
+      select: { 
+        role: true, 
+        thank_you_quota: true, 
+        great_job_quota: true 
+      }
+    });
 
     if (!userWithQuota) {
       return NextResponse.json({ error: "Không tìm thấy người dùng" }, { status: 404 });
