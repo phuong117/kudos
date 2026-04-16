@@ -32,11 +32,11 @@ export default function LoginPage() {
       <div className="login-glow-1" />
       <div className="login-glow-2" />
 
-      <motion.div
+      <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="login-card"
-        style={{ maxWidth: '480px' }}
+        style={{ maxWidth: '440px' }}
       >
         <div className="logo-login">
           <img src="/logo_ncs.png" alt="Logo" />
@@ -44,54 +44,80 @@ export default function LoginPage() {
 
         <h1 className="login-title">NCS Kudos</h1>
         <p className="login-subtitle">
-          Hệ thống tri ân và khen thưởng nội bộ. <br />
+          Hệ thống tri ân và khen thưởng nội bộ.<br />
           Chọn phương thức để tiếp tục.
         </p>
 
-        {/* Credentials Form */}
+        {/* --- MICROSOFT SSO - MỚI & ƯU TIÊN --- */}
+        <div className="sso-primary-container">
+          <button onClick={handleMSSO} className="ms-button-creative group">
+            <div className="ms-icon-wrapper pulse-animation">
+              <svg className="w-6 h-6" viewBox="0 0 23 23">
+                <path fill="#f3f3f3" d="M0 0h11v11H0z" />
+                <path fill="#f3f3f3" d="M12 0h11v11H12z" />
+                <path fill="#f25022" d="M1.5 1.5h8v8h-8z" />
+                <path fill="#7fba00" d="M13.5 1.5h8v8h-8z" />
+                <path fill="#00a4ef" d="M1.5 13.5h8v8h-8z" />
+                <path fill="#ffb900" d="M13.5 13.5h8v8h-8z" />
+              </svg>
+            </div>
+            <div className="ms-text-content">
+              <span className="ms-main-text">Microsoft SSO</span>
+              <span className="ms-sub-text">Đăng nhập tài khoản công ty</span>
+            </div>
+            <ArrowRight className="w-5 h-5 ml-auto translate-x-0 group-hover:translate-x-1 transition-transform bounce-animation" />
+            <div className="shine-effect"></div>
+          </button>
+          
+          <div className="recommendation-tag">
+            <Sparkles className="w-3 h-3 text-purple-400" />
+            <span>Khuyến nghị cho toàn bộ nhân viên NCS Group</span>
+          </div>
+        </div>
+
+        <div className="login-separator">
+          <span>HOẶC ĐĂNG NHẬP KHÁC</span>
+        </div>
+
         <form onSubmit={handleCredentialsLogin} className="credentials-form">
           <div className="form-group">
             <label>Tài khoản</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="nguyenminhminh@ncsgroup.vn"
-                className="login-input"
-                required
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <label>Mật khẩu</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="login-input"
+            <input 
+              type="text" 
+              className="login-input" 
+              placeholder="nguyenvanA@ncsgroup.vn"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="submit-login-btn" disabled={loading}>
+          
+          <div className="form-group">
+            <label>Mật khẩu</label>
+            <input 
+              type="password" 
+              className="login-input" 
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {error && (
+            <div className="text-red-500 text-xs font-bold text-center bg-red-500/10 p-3 rounded-lg border border-red-500/20">
+              {error}
+            </div>
+          )}
+
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="submit-login-btn"
+          >
             {loading ? 'Đang xác thực...' : 'Đăng nhập'}
           </button>
         </form>
-
-        <div className="login-separator">Hoặc đăng nhập nhanh</div>
-        <button onClick={handleMSSO} className="ms-button group">
-          <svg className="w-5 h-5" viewBox="0 0 23 23">
-            <path fill="#f3f3f3" d="M0 0h11v11H0z" />
-            <path fill="#f3f3f3" d="M12 0h11v11H12z" />
-            <path fill="#f25022" d="M1.5 1.5h8v8h-8z" />
-            <path fill="#7fba00" d="M13.5 1.5h8v8h-8z" />
-            <path fill="#00a4ef" d="M1.5 13.5h8v8h-8z" />
-            <path fill="#ffb900" d="M13.5 13.5h8v8h-8z" />
-          </svg>
-          Microsoft SSO
-          <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-        </button>
 
         <div className="security-tag">
           <ShieldCheck className="w-3.5 h-3.5" /> Bảo mật NCS Group
