@@ -38,11 +38,16 @@ export default function TransactionsAdmin() {
     return action.toUpperCase();
   };
 
-  const filteredTxs = txs.filter(tx =>
-    tx.id.toLowerCase().includes(search.toLowerCase()) ||
-    tx.user.name.toLowerCase().includes(search.toLowerCase()) ||
-    tx.user.email.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredTxs = txs.filter(tx => {
+    const searchLower = search.toLowerCase();
+    return (
+      tx.id.toLowerCase().includes(searchLower) ||
+      tx.user.name.toLowerCase().includes(searchLower) ||
+      tx.user.email.toLowerCase().includes(searchLower) ||
+      (tx.message && tx.message.toLowerCase().includes(searchLower)) ||
+      (tx.detail && tx.detail.toLowerCase().includes(searchLower))
+    );
+  });
 
   const exportToCSV = () => {
     const headers = ['Mã đơn', 'Người thực hiện', 'Email', 'Nghiệp vụ', 'Chi tiết', 'Lời nhắn', 'Biến động', 'Ngày thực hiện'];
@@ -94,7 +99,7 @@ export default function TransactionsAdmin() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Tìm mã đơn, tên người dùng..."
+            placeholder=" Tìm kiếm..."
             className="bg-transparent border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-primary w-80 transition-all placeholder:text-gray-600 font-medium"
           />
         </div>
