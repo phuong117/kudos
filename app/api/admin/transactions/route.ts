@@ -23,32 +23,48 @@ export async function GET(req: Request) {
       orderBy: { createdAt: 'desc' }
     });
 
-    // Fetch related gifts to show names in "Detail"
+    // Fetch related gifts and cards
     const giftIds = transactions
       .filter(tx => tx.action === 'redeem_gift' || tx.action === 'spin_wheel')
       .map(tx => tx.referenceId)
       .filter(Boolean) as string[];
 
-    const gifts = await prisma.gift.findMany({
-      where: { id: { in: giftIds } },
-      select: { id: true, name: true }
-    });
+    const cardIds = transactions
+      .filter(tx => tx.action.startsWith('receive_card'))
+      .map(tx => tx.referenceId)
+      .filter(Boolean) as string[];
+
+    const [gifts, cards] = await Promise.all([
+      prisma.gift.findMany({
+        where: { id: { in: giftIds } },
+        select: { id: true, name: true }
+      }),
+      prisma.card.findMany({
+        where: { id: { in: cardIds } },
+        select: { id: true, message: true }
+      })
+    ]);
 
     const giftMap = Object.fromEntries(gifts.map(g => [g.id, g.name]));
+    const cardMap = Object.fromEntries(cards.map(c => [c.id, c.message]));
 
     const transactionsWithDetail = transactions.map(tx => {
       let detail = '-';
+      let message = '-';
+
       if (tx.action === 'redeem_gift' || tx.action === 'spin_wheel') {
         detail = giftMap[tx.referenceId as string] || 'Quà tặng';
       } else if (tx.action === 'receive_card_thank_you') {
         detail = 'Thank You Card';
+        message = cardMap[tx.referenceId as string] || '-';
       } else if (tx.action === 'receive_card_great_job') {
         detail = 'Great Job Card';
+        message = cardMap[tx.referenceId as string] || '-';
       } else if (tx.action === 'admin_adjustment') {
         detail = 'Điều chỉnh bởi Admin';
       }
 
-      return { ...tx, detail };
+      return { ...tx, detail, message };
     });
 
     return NextResponse.json(transactionsWithDetail);

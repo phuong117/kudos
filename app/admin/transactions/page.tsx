@@ -45,13 +45,14 @@ export default function TransactionsAdmin() {
   );
 
   const exportToCSV = () => {
-    const headers = ['Mã đơn', 'Người thực hiện', 'Email', 'Nghiệp vụ', 'Chi tiết', 'Biến động', 'Ngày thực hiện'];
+    const headers = ['Mã đơn', 'Người thực hiện', 'Email', 'Nghiệp vụ', 'Chi tiết', 'Lời nhắn', 'Biến động', 'Ngày thực hiện'];
     const rows = filteredTxs.map(tx => [
       tx.id,
       tx.user.name,
       tx.user.email,
       getActionLabel(tx.action),
       tx.detail || '-',
+      tx.message || '-',
       `${tx.pointChange} PTS`,
       new Date(tx.createdAt).toLocaleString('vi-VN')
     ]);
@@ -104,6 +105,7 @@ export default function TransactionsAdmin() {
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4 px-8">Mã đơn</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Người thực hiện</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Nghiệp vụ</th>
+              <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Lời nhắn</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Biến động</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Ngày thực hiện</th>
               <th className="text-right text-[10px] uppercase tracking-widest text-gray-500 font-black py-4 px-8">Chi tiết</th>
@@ -132,6 +134,18 @@ export default function TransactionsAdmin() {
                 </td>
                 <td>
                   <span className="text-[10px] uppercase font-black tracking-widest text-gray-400">{getActionLabel(tx.action)}</span>
+                </td>
+                <td>
+                  <div className="max-w-[150px] truncate group relative">
+                    <span className="text-[10px] font-medium text-gray-600 italic">
+                      {tx.message && tx.message !== '-' ? `"${tx.message}"` : '-'}
+                    </span>
+                    {tx.message && tx.message !== '-' && (
+                      <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-50 bg-secondary p-3 rounded-lg border border-white/10 w-64 shadow-2xl text-[10px] text-white whitespace-normal font-medium leading-relaxed">
+                         {tx.message}
+                      </div>
+                    )}
+                  </div>
                 </td>
                 <td>
                   <div className={`flex items-center gap-1 font-black px-3 py-1.5 rounded-lg border w-fit text-[11px] ${tx.pointChange > 0 ? 'text-green-500 bg-green-500/10 border-green-500/10' : 'text-red-400 bg-red-500/10 border-red-500/10'}`}>
