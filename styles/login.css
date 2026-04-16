@@ -46,25 +46,7 @@
 }
 
 .logo-box {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 40px;
-  background: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.05),
-    0 0 40px rgba(110, 69, 226, 0.2);
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-.logo-box img {
-    width: 65%;
-    height: 65%;
-    object-contain: center;
+  margin-bottom: 40px;
 }
 
 .login-title {
