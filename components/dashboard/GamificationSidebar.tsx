@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Zap, Gift, Loader2, ChevronRight } from 'lucide-react';
+import { Trophy, Zap, Gift, Loader2, ChevronRight, Sparkles } from 'lucide-react';
 import LuckyWheel, { giftsToWheelPrizes } from './LuckyWheel';
 
 interface GamificationSidebarProps {
@@ -36,18 +36,21 @@ export default function GamificationSidebar({
             initial={{ opacity: 0, scale: 0.8, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: -20 }}
-            className="mb-6 p-8 rounded-[32px] bg-gradient-to-br from-[#30cfd0] to-[#330867] shadow-[0_20px_60px_rgba(48,207,208,0.3)] border border-white/20 text-center relative overflow-hidden group"
+            className="win-notification-creative mb-6"
           >
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-            <div className="relative z-10">
+            <div className="relative z-10 text-center">
               <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
+                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 className="inline-block mb-4"
               >
                 <Trophy className="w-12 h-12 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
               </motion.div>
-              <p className="text-white/70 text-[10px] uppercase font-black tracking-[0.3em] mb-2">Tuyệt vời! Bạn đã trúng:</p>
+              <p className="text-white/70 text-[10px] uppercase font-black tracking-[0.3em] mb-2 flex items-center justify-center gap-2">
+                <Sparkles className="w-3 h-3 text-purple-300" />
+                Tuyệt vời! Bạn đã trúng:
+                <Sparkles className="w-3 h-3 text-purple-300" />
+              </p>
               <h3 className="text-3xl font-black text-white uppercase tracking-tighter drop-shadow-lg leading-none mb-6">{wonPrize}</h3>
               <button
                 onClick={() => setWonPrize(null)}
@@ -67,10 +70,10 @@ export default function GamificationSidebar({
         </div>
 
         <div className="p-4 space-y-6">
-          <div className="grid grid-cols-3 gap-2 bg-white/[0.05] p-2 rounded-2xl border border-white/5">
-            <button onClick={() => setRewardTab('direct')} className={`py-3.5 text-[11px] font-black uppercase rounded-xl transition-all ${rewardTab === 'direct' ? 'bg-gradient-to-r from-primary to-primary-glow text-white shadow-xl shadow-[var(--color-primary)]/20 scale-[1.02]' : 'text-gray-500 hover:text-gray-300'}`}>Đổi 300</button>
-            <button onClick={() => setRewardTab('wheel_100')} className={`py-3.5 text-[11px] font-black uppercase rounded-xl transition-all ${rewardTab === 'wheel_100' ? 'bg-gradient-to-r from-primary to-primary-glow text-white shadow-xl shadow-[var(--color-primary)]/20 scale-[1.02]' : 'text-gray-500 hover:text-gray-300'}`}>Quay 100</button>
-            <button onClick={() => setRewardTab('wheel_50')} className={`py-3.5 text-[11px] font-black uppercase rounded-xl transition-all ${rewardTab === 'wheel_50' ? 'bg-gradient-to-r from-primary to-primary-glow text-white shadow-xl shadow-[var(--color-primary)]/20 scale-[1.02]' : 'text-gray-500 hover:text-gray-300'}`}>Quay 50</button>
+          <div className="tab-switcher-creative">
+            <button onClick={() => setRewardTab('direct')} className={`tab-btn-creative ${rewardTab === 'direct' ? 'active' : ''}`}>Đổi 300</button>
+            <button onClick={() => setRewardTab('wheel_100')} className={`tab-btn-creative ${rewardTab === 'wheel_100' ? 'active' : ''}`}>Quay 100</button>
+            <button onClick={() => setRewardTab('wheel_50')} className={`tab-btn-creative ${rewardTab === 'wheel_50' ? 'active' : ''}`}>Quay 50</button>
           </div>
 
           <AnimatePresence mode="wait">
@@ -108,11 +111,12 @@ export default function GamificationSidebar({
                     onWin={handleWheelWin}
                   />
                 </div>
-                <div className="text-center mt-12 space-y-2">
-                  <div className="bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full inline-block">
-                    <span className="text-[10px] text-primary uppercase font-black tracking-widest">Vòng quay cao cấp</span>
+                <div className="text-center mt-12 space-y-3">
+                  <div className="recommendation-tag w-fit mx-auto">
+                    <Sparkles className="w-3 h-3 text-purple-400" />
+                    <span>Vòng quay cao cấp</span>
                   </div>
-                  <div className="text-xl text-white font-black tracking-tighter">100 điểm / lượt</div>
+                  <div className="text-2xl text-white font-black tracking-tighter">100 ĐIỂM / LƯỢT</div>
                 </div>
               </motion.div>
             )}
@@ -127,11 +131,12 @@ export default function GamificationSidebar({
                     onWin={handleWheelWin}
                   />
                 </div>
-                <div className="text-center mt-12 space-y-2">
-                  <div className="bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full inline-block">
-                    <span className="text-[10px] text-primary uppercase font-black tracking-widest">Vòng quay phổ thông</span>
+                <div className="text-center mt-12 space-y-3">
+                  <div className="recommendation-tag w-fit mx-auto" style={{ color: '#00a4ef', borderColor: 'rgba(0,164,239,0.2)' }}>
+                    <Zap className="w-3 h-3 text-blue-400" />
+                    <span>Vòng quay phổ thông</span>
                   </div>
-                  <div className="text-xl text-white font-black tracking-tighter">50 điểm / lượt</div>
+                  <div className="text-2xl text-white font-black tracking-tighter">50 ĐIỂM / LƯỢT</div>
                 </div>
               </motion.div>
             )}

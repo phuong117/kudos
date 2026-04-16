@@ -359,3 +359,110 @@
     0 0 40px rgba(110, 69, 226, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+/* --- CREATIVE STANDOUT STYLES --- */
+
+/* Victory Notification Banner */
+.win-notification-creative {
+  background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px -10px rgba(78, 67, 118, 0.4), 0 0 20px rgba(110, 69, 226, 0.2);
+  animation: dynamic-gradient-dashboard 8s ease infinite;
+}
+
+.win-notification-creative::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-30deg);
+  animation: shine-dashboard 4s infinite linear;
+}
+
+/* Creative Tabs selection */
+.tab-switcher-creative {
+  display: flex;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 6px;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  margin-bottom: 24px;
+}
+
+.tab-btn-creative {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.tab-btn-creative.active {
+  background: linear-gradient(135deg, #eea2a2 0%, #7ac5d8 100%);
+  color: #000;
+  box-shadow: 0 8px 20px -5px rgba(238, 162, 162, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Creative Spin Button */
+.spin-btn-creative {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s;
+  box-shadow: 0 15px 35px -5px rgba(48, 207, 208, 0.4);
+}
+
+.spin-btn-creative:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.02);
+  background: linear-gradient(45deg, #eea2a2, #bbc1bf, #57c6e1, #b49fda, #7ac5d8);
+  background-size: 300% 300%;
+  animation: dynamic-gradient-dashboard 5s ease infinite;
+  box-shadow: 0 25px 50px -10px rgba(110, 69, 226, 0.5);
+}
+
+.spin-btn-creative:hover:not(:disabled)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-30deg);
+  animation: shine-dashboard 1.5s infinite;
+}
+
+@keyframes dynamic-gradient-dashboard {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shine-dashboard {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}

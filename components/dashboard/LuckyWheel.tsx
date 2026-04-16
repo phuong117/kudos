@@ -38,7 +38,7 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
 
     const particles: any[] = [];
     const colors = ['#30cfd0', '#330867', '#ff0055', '#ffcc00', '#00ffcc'];
-    
+
     for (let i = 0; i < 150; i++) {
       particles.push({
         x: canvas.width / 2,
@@ -54,7 +54,7 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       let alive = false;
-      
+
       particles.forEach(p => {
         if (p.life > 0) {
           alive = true;
@@ -109,7 +109,7 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
 
   const spin = async () => {
     if (spinning) return;
-    
+
     setSpinning(true);
     setError(null);
 
@@ -140,7 +140,7 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
       const targetAngle = segmentAngle * finalIndex + segmentAngle / 2;
       const fullSpins = 1800 + Math.floor(Math.random() * 360);
       const finalRotation = fullSpins + (360 - targetAngle);
-      
+
       rotationRef.current += finalRotation;
 
       await controls.start({
@@ -159,20 +159,20 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
 
   return (
     <div className="flex flex-col items-center max-w-[400px] mx-auto relative">
-      <canvas 
-        ref={canvasRef} 
-        className="fixed inset-0 pointer-events-none z-[9999]" 
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-[9999]"
       />
 
       <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] mb-12">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 filter drop-shadow-xl">
           <svg width="40" height="50" viewBox="0 0 40 50">
-            <path d="M20 50L0 0H40L20 50Z" fill="white" />
+            <path d="M20 50L0 0H40L20 50Z" fill="red" />
           </svg>
         </div>
-        
+
         <div className="w-full h-full rounded-full border-[12px] border-white/10 p-2 shadow-[0_0_50px_rgba(48,207,208,0.5)] bg-white/5 relative overflow-hidden">
-          <motion.div 
+          <motion.div
             animate={controls}
             className="w-full h-full rounded-full relative overflow-hidden"
           >
@@ -184,10 +184,10 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
                 const y1 = 50 + 50 * Math.sin((startAngle * Math.PI) / 180);
                 const x2 = 50 + 50 * Math.cos(((startAngle + angle) * Math.PI) / 180);
                 const y2 = 50 + 50 * Math.sin(((startAngle + angle) * Math.PI) / 180);
-                
+
                 return (
                   <g key={i}>
-                    <path 
+                    <path
                       d={`M 50 50 L ${x1} ${y1} A 50 50 0 0 1 ${x2} ${y2} Z`}
                       fill={p.color}
                       className="transition-opacity duration-300"
@@ -197,8 +197,8 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
                       y={50 + 32 * Math.sin(((startAngle + angle / 2) * Math.PI) / 180)}
                       fill="white"
                       fontSize={
-                        prizes.length <= 4 ? "5" : 
-                        prizes.length <= 8 ? "3.5" : "2.5"
+                        prizes.length <= 4 ? "5" :
+                          prizes.length <= 8 ? "3.5" : "2.5"
                       }
                       fontWeight="900"
                       textAnchor="middle"
@@ -206,14 +206,14 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
                       transform={`rotate(${startAngle + angle / 2 + 180}, ${50 + 32 * Math.cos(((startAngle + angle / 2) * Math.PI) / 180)}, ${50 + 32 * Math.sin(((startAngle + angle / 2) * Math.PI) / 180)})`}
                     >
                       {p.text.length > 10 && prizes.length <= 6 ? (
-                         <>
-                           <tspan x={50 + 32 * Math.cos(((startAngle + angle / 2) * Math.PI) / 180)} dy="-1.5em">
-                             {p.text.slice(0, p.text.lastIndexOf(' ', 10))}
-                           </tspan>
-                           <tspan x={50 + 32 * Math.cos(((startAngle + angle / 2) * Math.PI) / 180)} dy="1.2em">
-                             {p.text.slice(p.text.lastIndexOf(' ', 10))}
-                           </tspan>
-                         </>
+                        <>
+                          <tspan x={50 + 32 * Math.cos(((startAngle + angle / 2) * Math.PI) / 180)} dy="-1.5em">
+                            {p.text.slice(0, p.text.lastIndexOf(' ', 10))}
+                          </tspan>
+                          <tspan x={50 + 32 * Math.cos(((startAngle + angle / 2) * Math.PI) / 180)} dy="1.2em">
+                            {p.text.slice(p.text.lastIndexOf(' ', 10))}
+                          </tspan>
+                        </>
                       ) : (
                         p.text
                       )}
@@ -223,7 +223,7 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
               })}
             </svg>
           </motion.div>
-          
+
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl z-20 border-4 border-white/20">
               <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-full shadow-inner" />
@@ -233,16 +233,16 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
       </div>
 
       <div className="w-full text-center">
-        <button 
+        <button
           onClick={spin}
           disabled={spinning}
-          className={`w-full py-5 text-xl font-black rounded-2xl shadow-[0_10px_30px_rgba(48,207,208,0.3)] hover:shadow-[0_15px_40px_rgba(48,207,208,0.5)] transition-all bg-gradient-to-r from-primary to-primary-glow text-white uppercase tracking-widest ${spinning ? 'opacity-50 scale-95' : 'hover:scale-[1.02] active:scale-95'}`}
+          className={`spin-btn-creative ${spinning ? 'opacity-50 scale-95' : ''}`}
         >
           {spinning ? 'ĐANG QUAY...' : 'QUAY NGAY!'}
         </button>
-        
+
         {error && (
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className="mt-6 p-4 rounded-2xl border border-red-500/30 bg-red-500/10"
@@ -258,7 +258,7 @@ export default function LuckyWheel({ prizes, wheelType = 'wheel_100', onPointsDe
 // Export helper to convert gift data from DB to wheel prizes
 export function giftsToWheelPrizes(gifts: any[]): Prize[] {
   // Sort gifts by createdAt to ensure consistent index with API
-  const sortedGifts = [...gifts].sort((a, b) => 
+  const sortedGifts = [...gifts].sort((a, b) =>
     new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
 
