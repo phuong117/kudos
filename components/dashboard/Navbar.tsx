@@ -19,9 +19,7 @@ export default function Navbar({ user, userRole, handleLogout }: NavbarProps) {
     <nav className="header">
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-3">
-          <div className="logo-box is-nav">
-             <img src="/logo_ncs.png" alt="Logo" />
-          </div>
+          <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center font-black text-sm shadow-lg">K</div>
           <span className="text-sm font-black tracking-tighter uppercase">NCS Kudos</span>
         </div>
 
