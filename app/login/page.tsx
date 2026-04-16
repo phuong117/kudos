@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { ShieldCheck, ArrowRight, Mail, Lock } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Mail, Lock, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import '@/styles/login.css';
