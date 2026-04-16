@@ -1,35 +1,39 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  const userSession = session?.user as any;
-
-  if (!userSession) return false;
-  if (userSession.email === 'support@ncsgroup.vn' || userSession.email === 'admin') return true;
-  if (userSession.role === 'ADMIN') return true;
-
-  if (userSession.id) {
-    const user = await prisma.user.findUnique({
-      where: { id: userSession.id },
-      select: { role: true }
-    });
-    if (user?.role === 'ADMIN') return true;
+  try {
+    const session = await getServerSession(authOptions);
+    const userSession = session?.user as any;
+    
+    if (!userSession) return false;
+    if (userSession.email === 'support@ncsgroup.vn' || userSession.email === 'admin') return true;
+    if (userSession.role === 'ADMIN') return true;
+    
+    if (userSession.id) {
+      const user = await prisma.user.findUnique({
+        where: { id: userSession.id },
+        select: { role: true }
+      });
+      if (user?.role === 'ADMIN') return true;
+    }
+  } catch (e) {
+    console.error("Lỗi kiểm tra quyền Admin:", e);
   }
   return false;
 }
 
 export async function GET() {
-  if (!(await isAdmin())) {
-    return NextResponse.json({ error: "Không có quyền" }, { status: 403 });
-  }
-
   try {
+    if (!(await isAdmin())) {
+      return NextResponse.json({ error: "Không có quyền" }, { status: 403 });
+    }
+
     const users = await prisma.user.findMany({
       orderBy: {
         createdAt: 'desc',
