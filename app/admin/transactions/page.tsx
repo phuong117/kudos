@@ -40,17 +40,24 @@ export default function TransactionsAdmin() {
 
   const filteredTxs = txs.filter(tx => {
     const searchLower = search.toLowerCase();
+    const actionLabel = getActionLabel(tx.action).toLowerCase();
+    const dateStr = new Date(tx.createdAt).toLocaleDateString('vi-VN').toLowerCase();
+    const pointStr = `${tx.pointChange > 0 ? '+' : ''}${tx.pointChange} pts`.toLowerCase();
+
     return (
       tx.id.toLowerCase().includes(searchLower) ||
       tx.user.name.toLowerCase().includes(searchLower) ||
       tx.user.email.toLowerCase().includes(searchLower) ||
+      actionLabel.includes(searchLower) ||
       (tx.message && tx.message.toLowerCase().includes(searchLower)) ||
+      pointStr.includes(searchLower) ||
+      dateStr.includes(searchLower) ||
       (tx.detail && tx.detail.toLowerCase().includes(searchLower))
     );
   });
 
   const exportToCSV = () => {
-    const headers = ['Mã đơn', 'Người thực hiện', 'Email', 'Nghiệp vụ', 'Chi tiết', 'Lời nhắn', 'Biến động', 'Ngày thực hiện'];
+    const headers = ['ID', 'Người thực hiện', 'Email', 'Nghiệp vụ', 'Chi tiết', 'Lời nhắn', 'Biến động', 'Ngày thực hiện'];
     const rows = filteredTxs.map(tx => [
       tx.id,
       tx.user.name,
@@ -107,7 +114,7 @@ export default function TransactionsAdmin() {
         <table className="glass-table">
           <thead>
             <tr>
-              <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4 px-8">Mã đơn</th>
+              <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4 px-8">ID</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Người thực hiện</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Nghiệp vụ</th>
               <th className="text-left text-[10px] uppercase tracking-widest text-gray-500 font-black py-4">Lời nhắn</th>
@@ -147,7 +154,7 @@ export default function TransactionsAdmin() {
                     </span>
                     {tx.message && tx.message !== '-' && (
                       <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-50 bg-secondary p-3 rounded-lg border border-white/10 w-64 shadow-2xl text-[10px] text-white whitespace-normal font-medium leading-relaxed">
-                         {tx.message}
+                        {tx.message}
                       </div>
                     )}
                   </div>
@@ -162,7 +169,7 @@ export default function TransactionsAdmin() {
                   <span className="text-xs font-bold text-gray-500">{new Date(tx.createdAt).toLocaleDateString('vi-VN')}</span>
                 </td>
                 <td className="text-right px-8">
-                   <span className="text-[10px] uppercase font-black tracking-widest text-primary border border-primary/20 bg-primary/5 px-3 py-1.5 rounded-lg">
+                  <span className="text-[10px] uppercase font-black tracking-widest text-primary border border-primary/20 bg-primary/5 px-3 py-1.5 rounded-lg">
                     {tx.detail || '-'}
                   </span>
                 </td>
