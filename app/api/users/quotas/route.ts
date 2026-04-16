@@ -25,8 +25,14 @@ export async function GET() {
       select: { type: true }
     });
 
-    const users = await prisma.$queryRaw`SELECT thank_you_quota, great_job_quota, image FROM User WHERE id = ${userId} LIMIT 1`;
-    const user = (users as any)[0];
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { 
+        thank_you_quota: true, 
+        great_job_quota: true, 
+        image: true 
+      }
+    });
 
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 

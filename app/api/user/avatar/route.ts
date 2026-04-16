@@ -21,12 +21,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Ảnh quá lớn (tối đa 10MB)' }, { status: 400 });
     }
 
-    // We use executeRaw to bypass potential Prisma Client staleness if generate failed
-    await prisma.$executeRaw`
-      UPDATE User 
-      SET image = ${image} 
-      WHERE email = ${session.user.email}
-    `;
+    // Sử dụng Prisma Client thay vì Raw SQL để tránh lỗi cú pháp với PostgreSQL
+    await prisma.user.update({
+      where: { email: session.user.email },
+      data: { image: image }
+    });
 
     return NextResponse.json({ success: true, image });
   } catch (error) {
