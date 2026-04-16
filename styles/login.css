@@ -45,7 +45,7 @@
   box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.1);
 }
 
-.logo-box {
+.logo-login {
   width: 90px;
   height: 90px;
   margin: 0 auto 40px;
@@ -55,16 +55,16 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.05),
     0 0 40px rgba(110, 69, 226, 0.2);
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.logo-box img {
-    width: 65%;
-    height: 65%;
-    object-contain: center;
+.logo-login img {
+  width: 65%;
+  height: 65%;
+  object-contain: center;
 }
 
 .login-title {

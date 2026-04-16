@@ -38,7 +38,7 @@ export default function LoginPage() {
         className="login-card"
         style={{ maxWidth: '480px' }}
       >
-        <div className="logo-box">
+        <div className="logo-login">
           <img src="/logo_ncs.png" alt="Logo" />
         </div>
 
