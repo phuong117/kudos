@@ -253,60 +253,62 @@ export default function DashboardPage() {
       <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[9999]" />
 
       <div className="dashboard-container">
-        <div className="main-content-area">
-          <DashboardHero 
-            user={userData} 
-            quotas={quotas}
-            handleAvatarClick={handleAvatarClick}
-            fileInputRef={fileInputRef}
-            handleFileChange={handleFileChange}
-          />
+        <div className="dashboard-top-flex">
+          <div className="main-content-area">
+            <DashboardHero 
+              user={userData} 
+              quotas={quotas}
+              handleAvatarClick={handleAvatarClick}
+              fileInputRef={fileInputRef}
+              handleFileChange={handleFileChange}
+            />
 
-          <KudosForm 
-            userRole={userData.role}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            selectedRecipient={selectedRecipient}
-            setSelectedRecipient={setSelectedRecipient}
-            cardType={cardType}
-            setCardType={setCardType}
-            message={message}
-            setMessage={setMessage}
-            sending={sending}
-            successMsg={successMsg}
-            handleSendKudos={handleSendKudos}
-          />
+            <KudosForm 
+              userRole={userData.role}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
+              selectedRecipient={selectedRecipient}
+              setSelectedRecipient={setSelectedRecipient}
+              cardType={cardType}
+              setCardType={setCardType}
+              message={message}
+              setMessage={setMessage}
+              sending={sending}
+              successMsg={successMsg}
+              handleSendKudos={handleSendKudos}
+            />
+          </div>
 
-          <section>
-            <div className="history-header">
-              <div className="flex items-center gap-3">
-                <HistoryIcon className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-bold">Lịch sử hoạt động</h2>
-              </div>
-              <div className="history-tabs">
-                <button onClick={() => setActiveTab('received')} className={`h-tab ${activeTab === 'received' ? 'active' : ''}`}>Đã nhận</button>
-                <button onClick={() => setActiveTab('sent')} className={`h-tab ${activeTab === 'sent' ? 'active' : ''}`}>Đã gửi</button>
-              </div>
-            </div>
-            <div className="glass-card" style={{ padding: '0', background: 'transparent', border: 'none' }}>
-              <DashboardTable activeTab={activeTab} />
-            </div>
-          </section>
+          <GamificationSidebar 
+            wonPrize={wonPrize}
+            setWonPrize={setWonPrize}
+            rewardTab={rewardTab}
+            setRewardTab={setRewardTab}
+            gifts={gifts}
+            redeemLoading={redeemLoading}
+            handleDirectRedeem={handleDirectRedeem}
+            handleWheelPointsDeducted={handleWheelPointsDeducted}
+            handleWheelWin={handleWheelWin}
+          />
         </div>
 
-        <GamificationSidebar 
-          wonPrize={wonPrize}
-          setWonPrize={setWonPrize}
-          rewardTab={rewardTab}
-          setRewardTab={setRewardTab}
-          gifts={gifts}
-          redeemLoading={redeemLoading}
-          handleDirectRedeem={handleDirectRedeem}
-          handleWheelPointsDeducted={handleWheelPointsDeducted}
-          handleWheelWin={handleWheelWin}
-        />
+        <section className="activity-history-section mt-8">
+          <div className="history-header">
+            <div className="flex items-center gap-3">
+              <HistoryIcon className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold">Lịch sử hoạt động</h2>
+            </div>
+            <div className="history-tabs">
+              <button onClick={() => setActiveTab('received')} className={`h-tab ${activeTab === 'received' ? 'active' : ''}`}>Đã nhận</button>
+              <button onClick={() => setActiveTab('sent')} className={`h-tab ${activeTab === 'sent' ? 'active' : ''}`}>Đã gửi</button>
+            </div>
+          </div>
+          <div className="glass-card" style={{ padding: '0', background: 'transparent', border: 'none' }}>
+            <DashboardTable activeTab={activeTab} />
+          </div>
+        </section>
       </div>
     </main>
   );

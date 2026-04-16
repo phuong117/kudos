@@ -1,11 +1,31 @@
-/* Dashboard Layout Structure */
 .dashboard-container {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 100px 24px 60px;
+  padding: 100px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.dashboard-top-flex {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
+  gap: 32px;
+  align-items: start;
+}
+
+.main-content-area {
+  grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sidebar-content {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 /* User Hero Section (Component 1) */
