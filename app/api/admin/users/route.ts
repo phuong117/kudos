@@ -32,9 +32,9 @@ export async function GET() {
     try {
       // Dùng Raw SQL để né lỗi runtime validation của bộ thư viện Prisma cũ
       const users = await prisma.$queryRaw`
-        SELECT id, name, email, role, total_points, thank_you_quota, great_job_quota, createdAt 
-        FROM User 
-        ORDER BY createdAt DESC
+        SELECT id, name, email, role, total_points, "thank_you_quota", "great_job_quota", "createdAt" 
+        FROM "User" 
+        ORDER BY "createdAt" DESC
       `;
       return NextResponse.json(users);
   } catch (error) {
