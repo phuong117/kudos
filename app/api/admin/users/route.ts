@@ -9,11 +9,11 @@ const prisma = new PrismaClient();
 async function isAdmin() {
   const session = await getServerSession(authOptions);
   const userSession = session?.user as any;
-  
+
   if (!userSession) return false;
   if (userSession.email === 'support@ncsgroup.vn' || userSession.email === 'admin') return true;
   if (userSession.role === 'ADMIN') return true;
-  
+
   if (userSession.id) {
     const user = await prisma.user.findUnique({
       where: { id: userSession.id },
@@ -29,15 +29,25 @@ export async function GET() {
     return NextResponse.json({ error: "Không có quyền" }, { status: 403 });
   }
 
-    try {
-      // Dùng Raw SQL để né lỗi runtime validation của bộ thư viện Prisma cũ
-      const users = await prisma.$queryRaw`
-        SELECT id, name, email, role, total_points, "thank_you_quota", "great_job_quota", "createdAt" 
-        FROM "User" 
-        ORDER BY "createdAt" DESC
-      `;
-      return NextResponse.json(users);
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        total_points: true,
+        thank_you_quota: true,
+        great_job_quota: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return NextResponse.json(users);
   } catch (error) {
+    console.error("Lấy danh sách nhân sự lỗi:", error);
     return NextResponse.json({ error: "Lỗi lấy danh sách nhân sự" }, { status: 500 });
   }
 }
