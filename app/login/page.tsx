@@ -79,8 +79,8 @@ export default function LoginPage() {
           </button>
         </form>
 
+        {/* 
         <div className="login-separator">Hoặc đăng nhập nhanh</div>
-
         <button onClick={handleMSSO} className="ms-button group">
           <svg className="w-5 h-5" viewBox="0 0 23 23">
             <path fill="#f3f3f3" d="M0 0h11v11H0z" />
@@ -92,7 +92,8 @@ export default function LoginPage() {
           </svg>
           Microsoft SSO
           <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-        </button>
+        </button> 
+        */}
 
         <div className="security-tag">
           <ShieldCheck className="w-3.5 h-3.5" /> Bảo mật NCS Group
