@@ -16,9 +16,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'No image data provided' }, { status: 400 });
     }
 
-    // Limit size (e.g. 2MB)
-    if (image.length > 2 * 1024 * 1024) {
-      return NextResponse.json({ error: 'Image too large (max 2MB)' }, { status: 400 });
+    // Limit size (approx 10MB binary -> ~14MB base64)
+    if (image.length > 15 * 1024 * 1024) {
+      return NextResponse.json({ error: 'Ảnh quá lớn (tối đa 10MB)' }, { status: 400 });
     }
 
     // We use executeRaw to bypass potential Prisma Client staleness if generate failed

@@ -95,8 +95,8 @@ export default function DashboardPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 2 * 1024 * 1024) {
-      alert("Ảnh quá lớn! Vui lòng chọn ảnh dưới 2MB.");
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Ảnh quá lớn! Vui lòng chọn ảnh dưới 10MB.");
       return;
     }
 
