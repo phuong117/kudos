@@ -14,7 +14,6 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-  try {
     const transactions = await prisma.transaction.findMany({
       include: {
         user: {
@@ -57,4 +56,4 @@ export async function GET(req: Request) {
     console.error("Fetch transactions error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
-} 
+}
