@@ -31,24 +31,17 @@ export async function GET() {
 
   try {
     const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        total_points: true,
-        thank_you_quota: true,
-        great_job_quota: true,
-        createdAt: true,
-      },
       orderBy: {
         createdAt: 'desc',
       },
     });
     return NextResponse.json(users);
-  } catch (error) {
-    console.error("Lấy danh sách nhân sự lỗi:", error);
-    return NextResponse.json({ error: "Lỗi lấy danh sách nhân sự" }, { status: 500 });
+  } catch (error: any) {
+    console.error("--- LỖI LẤY DANH SÁCH NHÂN SỰ ---");
+    console.error("Message:", error.message);
+    console.error("Code:", error.code);
+    console.error("Stack:", error.stack);
+    return NextResponse.json({ error: "Lỗi lấy danh sách nhân sự", details: error.message }, { status: 500 });
   }
 }
 
