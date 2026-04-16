@@ -27,5 +27,12 @@ services:
       DATABASE_URL: "postgresql://kudos_user:kudos_password_123@db:5432/kudos_db?schema=public"
     restart: always
 
+  adminer:
+    image: adminer
+    container_name: kudos-adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
 volumes:
   postgres_data:
