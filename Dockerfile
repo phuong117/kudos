@@ -41,7 +41,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 RUN mkdir -p /app/prisma && chown -R nextjs:nodejs /app/prisma
 
 # Script to run migrations and then start the app
-RUN echo 'npx prisma@6 migrate deploy && node server.js' > start.sh && chmod +x start.sh
+RUN echo 'npx prisma@6 migrate deploy && node --max-http-header-size=65536 server.js' > start.sh && chmod +x start.sh
 
 USER nextjs
 
