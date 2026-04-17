@@ -44,5 +44,3 @@ next-env.d.ts
 prisma/dev.db
 prisma/dev.db-journal
 
-# scripts
-scripts/create_admin.js

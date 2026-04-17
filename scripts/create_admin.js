@@ -5,32 +5,44 @@ const prisma = new PrismaClient();
 
 async function main() {
   const email = 'support@ncsgroup.vn';
-  const password = await bcrypt.hash('Kudos@12!@#$', 12);
+  const name = 'admin';
+  const password = 'admin';
 
-  const user = await prisma.user.upsert({
-    where: { email },
-    update: {
-      role: 'ADMIN',
-      password,
-    },
-    create: {
+  console.log('Checking for existing admin...');
+  const existingUser = await prisma.user.findUnique({
+    where: { email }
+  });
+
+  if (existingUser) {
+    console.log('Admin user already exists.');
+    return;
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  console.log('Creating admin user...');
+  await prisma.user.create({
+    data: {
       email,
-      name: 'System Administrator',
-      password,
+      name,
+      password: hashedPassword,
       role: 'ADMIN',
-      total_points: 9999
+      total_points: 1000,
     }
   });
 
-  console.log('Account created successfully:');
-  console.log('Email: ' + user.email);
-  console.log('Password: Kudos@12!@#$');
+  console.log('-----------------------------------------');
+  console.log('Admin user created successfully!');
+  console.log('Email: ' + email);
+  console.log('Password: ' + password);
+  console.log('-----------------------------------------');
 }
 
 main()
-  .then(() => prisma.$disconnect())
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
+  .catch((e) => {
+    console.error('Error creating admin:', e);
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });
