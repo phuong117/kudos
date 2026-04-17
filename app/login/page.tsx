@@ -46,7 +46,7 @@ export default function LoginPage() {
       <div className="login-glow-1" />
       <div className="login-glow-2" />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="login-card"
@@ -69,6 +69,8 @@ export default function LoginPage() {
               <svg className="w-6 h-6" viewBox="0 0 23 23">
                 <path fill="#f3f3f3" d="M0 0h11v11H0z" />
                 <path fill="#f3f3f3" d="M12 0h11v11H12z" />
+                <path fill="#f3f3f3" d="M0 12h11v11H0z" />
+                <path fill="#f3f3f3" d="M12 12h11v11H12z" />
                 <path fill="#f25022" d="M1.5 1.5h8v8h-8z" />
                 <path fill="#7fba00" d="M13.5 1.5h8v8h-8z" />
                 <path fill="#00a4ef" d="M1.5 13.5h8v8h-8z" />
@@ -81,36 +83,33 @@ export default function LoginPage() {
             </div>
             <ArrowRight className="w-5 h-5 ml-auto translate-x-0 group-hover:translate-x-1 transition-transform bounce-animation" />
             <div className="shine-effect"></div>
+
           </button>
-          
-          <div className="recommendation-tag">
-            <Sparkles className="w-3 h-3 text-purple-400" />
-            <span>Khuyến nghị cho toàn bộ nhân viên NCS Group</span>
-          </div>
+
         </div>
 
         <div className="login-separator">
-          <span>HOẶC ĐĂNG NHẬP KHÁC</span>
+          <span>ĐĂNG NHẬP KHÁC</span>
         </div>
 
         <form onSubmit={handleCredentialsLogin} className="credentials-form">
           <div className="form-group">
             <label>Tài khoản</label>
-            <input 
-              type="text" 
-              className="login-input" 
+            <input
+              type="text"
+              className="login-input"
               placeholder="nguyenvanA@ncsgroup.vn"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label>Mật khẩu</label>
-            <input 
-              type="password" 
-              className="login-input" 
+            <input
+              type="password"
+              className="login-input"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -124,8 +123,8 @@ export default function LoginPage() {
             </div>
           )}
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             className="submit-login-btn"
           >
