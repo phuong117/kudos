@@ -16,6 +16,9 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.AZURE_AD_CLIENT_SECRET || "",
       tenantId: process.env.AZURE_AD_TENANT_ID,
       allowDangerousEmailAccountLinking: true,
+      httpOptions: {
+        timeout: 10000,
+      },
     }),
     CredentialsProvider({
       name: "Tài khoản NCS",
